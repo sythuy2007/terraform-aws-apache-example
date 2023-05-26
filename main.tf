@@ -7,7 +7,7 @@ data "aws_vpc" "main" {
   id = var.vpc_id
 }
 data "aws_ami" "ubuntu" {
-  
+
   most_recent = true
 
   filter {
@@ -21,16 +21,15 @@ data "aws_ami" "ubuntu" {
   }
   owners = ["099720109477"] # Canonical
 }
-resource "aws_instance" "my_east_server" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  
-  tags = {
-    Name = "Server-East"
-  }
+
+data "aws_subnet_ids" "subnet_id" {
+  vpc_id = data.aws_vpc.main.id
+
 }
+
 resource "aws_instance" "my_server" {
   ami                    = data.aws_ami.ubuntu.id
+  subnet_id              = tolist(data.aws_subnet_ids.subnet_id.ids)[0]
   instance_type          = var.instance_type
   key_name               = "main-key"
   vpc_security_group_ids = [aws_security_group.allow_web_sg.id]
