@@ -4,7 +4,7 @@ variable "vpc_id" {
 }
 variable "my_ip_with_cidr" {
   type        = string
-  description = "provide your ip eg 58.186.113.176/32"
+  description = "provide your ip eg 1.1.1.1/32"
 }
 variable "instance_type" {
   type    = string
