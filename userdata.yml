@@ -1,0 +1,7 @@
+#cloud-config
+packages:
+  - apache2
+runcmd: 
+  - sudo apt update -y
+  - sudo apt install apache2 -y
+  - sudo systemctl start apache2
